@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour
-{
+public class Player : MonoBehaviour {
     public float Speed;
     public float RotSpeed;
+    public Transform BulletSpawn;
+    public ParticleSystem particles;
 
     void Update() {
         setRotation();
@@ -14,6 +15,12 @@ public class Player : MonoBehaviour
 
     private void setMovement() {
         float speed = Input.GetAxis("Vertical") * Speed * Time.deltaTime;
+        if (speed == 0 && particles.isPlaying) {
+            particles.Stop();
+        }
+        else if (speed != 0 && particles.isStopped) {
+            particles.Play();
+        }
         GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(0, speed));
     }
 
@@ -34,7 +41,7 @@ public class Player : MonoBehaviour
     private void checkFire() {
         if (Input.GetButtonDown("Fire")) {
             GameObject bullet = ObjectPooler.instance.GetPooledObject(ObjectPooler.ObjectTypes.Bullet);
-            bullet.transform.position = transform.position;
+            bullet.transform.position = BulletSpawn.position;
             bullet.transform.rotation = transform.rotation;
             bullet.SetActive(true);
         }

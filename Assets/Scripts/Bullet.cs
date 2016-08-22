@@ -6,7 +6,10 @@ public class Bullet : MonoBehaviour {
 
     void Awake() {
         int bulletLayer = gameObject.layer;
+        int playerLayer = LayerMask.NameToLayer("Player");
         Physics2D.IgnoreLayerCollision(bulletLayer, bulletLayer, true);
+        Physics2D.IgnoreLayerCollision(bulletLayer, playerLayer, true);
+
     }
 
     void Update() {

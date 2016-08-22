@@ -15,6 +15,7 @@ public class ObjectPooler : MonoBehaviour {
     public GameObject enemy;
 
     private Dictionary<ObjectTypes, List<GameObject>> gameObjects = new Dictionary<ObjectTypes, List<GameObject>>();
+    private Dictionary<ObjectTypes, GameObject> prefabs = new Dictionary<ObjectTypes, GameObject>();
 
     void Awake() {
         instance = this;
@@ -23,8 +24,9 @@ public class ObjectPooler : MonoBehaviour {
     void Start() {
         gameObjects.Add(ObjectTypes.Bullet, new List<GameObject>());
         gameObjects.Add(ObjectTypes.Enemy, new List<GameObject>());
+        prefabs.Add(ObjectTypes.Bullet, bullet);
+        prefabs.Add(ObjectTypes.Enemy, enemy);
 
-        //TODO : initialize gameObjects with enemies and bullets
         for (int i = 0; i < initialBulletCount; i++) {
             GameObject newBullet = (GameObject)Instantiate(bullet);
             newBullet.SetActive(false);
@@ -43,8 +45,7 @@ public class ObjectPooler : MonoBehaviour {
                 return obj;
             }
         }
-        // TODO : Create proper type!
-        GameObject newObj = (GameObject)Instantiate(bullet);
+        GameObject newObj = (GameObject)Instantiate(prefabs[type]);
         gameObjects[type].Add(newObj);
         return newObj;
     }
