@@ -2,14 +2,15 @@
 using System.Collections;
 
 public class CameraShake : MonoBehaviour {
-    public float shakeAmt = 0.1f;
+    public float shakeAmt;
+    public float shakeLength;
 
     private Vector3 originalPosition;
 
     public void Shake() {
         originalPosition = transform.position;
         InvokeRepeating("shake", 0, .01f);
-        Invoke("stopShaking", 0.3f);
+        Invoke("stopShaking", shakeLength);
     }
 
     private void shake() {
