@@ -3,10 +3,15 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
     public float Speed;
-    public Transform Player;
+
+    private Transform player;
+
+    void Start() {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 	
 	void Update() {
-        transform.up = Player.position - transform.position;
+        transform.up = player.position - transform.position;
         GetComponent<Rigidbody2D>().velocity = transform.up * Speed * Time.deltaTime;
     }
 }
