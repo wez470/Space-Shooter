@@ -26,11 +26,11 @@ public class Bullet : MonoBehaviour {
             explosion.transform.position = transform.position;
             explosion.transform.rotation = transform.rotation;
             explosion.SetActive(true);
+            Score.Instance.UpdateScore();
         }
     }
 
     void OnBecameInvisible() {
-        Debug.Log("MADE IT");
         gameObject.SetActive(false);
     }
 }

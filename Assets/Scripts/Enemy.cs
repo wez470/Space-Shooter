@@ -14,4 +14,11 @@ public class Enemy : MonoBehaviour {
         transform.up = player.position - transform.position;
         GetComponent<Rigidbody2D>().velocity = transform.up * Speed * Time.deltaTime;
     }
+
+    void OnCollisionEnter2D(Collision2D coll) {
+        if (coll.gameObject.tag == "Player") {
+            Time.timeScale = 0;
+            Application.Quit();
+        }
+    }
 }
