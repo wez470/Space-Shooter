@@ -9,6 +9,8 @@ public class Score : MonoBehaviour {
     private int score = 0;
     private int originalFontSize;
     private int scoreUpdateFontSize;
+    private float timeBetweenFontUpdates = 1 / 60f;
+    private float timeOfLastFontUpdate;
 
     void Awake() {
         Instance = this;
@@ -17,7 +19,9 @@ public class Score : MonoBehaviour {
     }
 
     void Update() {
-        if (scoreUpdateFontSize > originalFontSize) {
+        if (scoreUpdateFontSize > originalFontSize
+                && Time.timeSinceLevelLoad - timeOfLastFontUpdate > timeBetweenFontUpdates) {
+            timeOfLastFontUpdate = Time.timeSinceLevelLoad;
             Text txt = GetComponent<Text>();
             txt.fontSize = scoreUpdateFontSize;
             scoreUpdateFontSize--;
@@ -29,5 +33,6 @@ public class Score : MonoBehaviour {
         Text txt = GetComponent<Text>();
         txt.text = "Score: " + score;
         scoreUpdateFontSize = originalFontSize + FontIncreaseSize;
+        timeOfLastFontUpdate = Time.timeSinceLevelLoad;
     }
 }
