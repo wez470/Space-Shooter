@@ -17,8 +17,8 @@ public class Enemy : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D coll) {
         if (coll.gameObject.tag == "Player") {
+            GameController.Instance.GameOver();
             Time.timeScale = 0;
-            Application.Quit();
         }
     }
 }

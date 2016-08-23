@@ -22,12 +22,16 @@ public class Bullet : MonoBehaviour {
             coll.gameObject.SetActive(false);
             gameObject.SetActive(false);
             AudioSource.PlayClipAtPoint(ExplosionClip, Camera.main.transform.position);
-            GameObject explosion = ObjectPooler.Instance.GetPooledObject(ObjectPooler.ObjectTypes.Explosion);
-            explosion.transform.position = transform.position;
-            explosion.transform.rotation = transform.rotation;
-            explosion.SetActive(true);
+            createExplosion();
             Score.Instance.UpdateScore();
         }
+    }
+
+    private void createExplosion() {
+        GameObject explosion = ObjectPooler.Instance.GetPooledObject(ObjectPooler.ObjectTypes.Explosion);
+        explosion.transform.position = transform.position;
+        explosion.transform.rotation = transform.rotation;
+        explosion.SetActive(true);
     }
 
     void OnBecameInvisible() {

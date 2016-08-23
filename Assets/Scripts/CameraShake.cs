@@ -16,10 +16,10 @@ public class CameraShake : MonoBehaviour {
     private void shake() {
         float quakeAmtX = Random.value * shakeAmt * 2 - shakeAmt;
         float quakeAmtY = Random.value * shakeAmt * 2 - shakeAmt;
-        Vector3 pp = transform.position;
-        pp.x += quakeAmtX;
-        pp.y += quakeAmtY;
-        transform.position = pp;
+        Vector3 position = transform.position;
+        position.x += quakeAmtX;
+        position.y += quakeAmtY;
+        transform.position = position;
     }
 
     private void stopShaking() {

@@ -17,7 +17,7 @@ public class EnemySpawner : MonoBehaviour {
 	void Update () {
         if (Time.timeSinceLevelLoad > timeOfLastSpawn + timeBetweenSpawns) {
             timeOfLastSpawn = Time.timeSinceLevelLoad;
-            Transform spawn = spawns[(int)(Random.value * spawns.Count)];
+            Transform spawn = spawns[Random.Range(0, spawns.Count)];
             GameObject enemy = ObjectPooler.Instance.GetPooledObject(ObjectPooler.ObjectTypes.Enemy);
             enemy.transform.position = spawn.position;
             enemy.SetActive(true);
@@ -26,6 +26,7 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
     private void updateTimeBetweenSpawns() {
-        timeBetweenSpawns = InitialTimeBetweenSpawns - Mathf.Min(InitialTimeBetweenSpawns - 1, (int)(Time.timeSinceLevelLoad / TimeBeforeSpawnIncrease));
+        timeBetweenSpawns = InitialTimeBetweenSpawns 
+                - Mathf.Min(InitialTimeBetweenSpawns - 1, (int)(Time.timeSinceLevelLoad / TimeBeforeSpawnIncrease));
     }
 }

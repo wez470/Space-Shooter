@@ -4,7 +4,7 @@ using System.Collections;
 
 public class Score : MonoBehaviour {
     public static Score Instance;
-    public int fontIncreaseSize;
+    public int FontIncreaseSize;
 
     private int score = 0;
     private int originalFontSize;
@@ -28,6 +28,6 @@ public class Score : MonoBehaviour {
         score++;
         Text txt = GetComponent<Text>();
         txt.text = "Score: " + score;
-        scoreUpdateFontSize = originalFontSize + fontIncreaseSize;
+        scoreUpdateFontSize = originalFontSize + FontIncreaseSize;
     }
 }

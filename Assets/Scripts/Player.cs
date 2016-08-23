@@ -6,7 +6,6 @@ public class Player : MonoBehaviour {
     public float RotSpeed;
     public Transform BulletSpawn;
     public ParticleSystem Particles;
-    public CameraShake CameraScript;
     public AudioClip BulletLaunch; 
 
     void Update() {
