@@ -9,13 +9,15 @@ public class CameraShake : MonoBehaviour {
     public void Shake() {
         originalPosition = transform.position;
         InvokeRepeating("shake", 0, .01f);
-        Invoke("stopShaking", 0.5f);
+        Invoke("stopShaking", 0.3f);
     }
 
     private void shake() {
-        float quakeAmt = Random.value * shakeAmt * 2 - shakeAmt;
+        float quakeAmtX = Random.value * shakeAmt * 2 - shakeAmt;
+        float quakeAmtY = Random.value * shakeAmt * 2 - shakeAmt;
         Vector3 pp = transform.position;
-        pp.y += quakeAmt; // can also add to x and/or z
+        pp.x += quakeAmtX;
+        pp.y += quakeAmtY;
         transform.position = pp;
     }
 

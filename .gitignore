@@ -17,3 +17,5 @@ Temp
 *.unityproj
 *.booproj
 .Trashes
+*.exe
+*_Data/

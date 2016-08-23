@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
     public float Speed;
+    public CameraShake cameraScript;
 
     void Awake() {
         int bulletLayer = gameObject.layer;
@@ -14,5 +15,13 @@ public class Bullet : MonoBehaviour {
 
     void Update() {
         GetComponent<Rigidbody2D>().velocity = transform.up * Speed * Time.deltaTime;
+    }
+
+    void OnCollisionEnter2D(Collision2D coll) {
+        if (coll.gameObject.tag == "Enemy") {
+            Camera.main.GetComponent<CameraShake>().Shake();
+            coll.gameObject.SetActive(false);
+            gameObject.SetActive(false);
+        }
     }
 }
