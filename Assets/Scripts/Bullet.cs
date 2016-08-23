@@ -3,14 +3,13 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
     public float Speed;
-    public CameraShake cameraScript;
+    public AudioClip Explosion;
 
     void Awake() {
         int bulletLayer = gameObject.layer;
         int playerLayer = LayerMask.NameToLayer("Player");
         Physics2D.IgnoreLayerCollision(bulletLayer, bulletLayer, true);
         Physics2D.IgnoreLayerCollision(bulletLayer, playerLayer, true);
-
     }
 
     void Update() {
@@ -22,6 +21,7 @@ public class Bullet : MonoBehaviour {
             Camera.main.GetComponent<CameraShake>().Shake();
             coll.gameObject.SetActive(false);
             gameObject.SetActive(false);
+            AudioSource.PlayClipAtPoint(Explosion, Camera.main.transform.position);
         }
     }
 }

@@ -5,8 +5,9 @@ public class Player : MonoBehaviour {
     public float Speed;
     public float RotSpeed;
     public Transform BulletSpawn;
-    public ParticleSystem particles;
-    public CameraShake cameraScript;
+    public ParticleSystem Particles;
+    public CameraShake CameraScript;
+    public AudioClip BulletLaunch; 
 
     void Update() {
         setRotation();
@@ -16,11 +17,11 @@ public class Player : MonoBehaviour {
 
     private void setMovement() {
         float speed = Input.GetAxis("Vertical") * Speed * Time.deltaTime;
-        if (speed == 0 && particles.isPlaying) {
-            particles.Stop();
+        if (speed == 0 && Particles.isPlaying) {
+            Particles.Stop();
         }
-        else if (speed != 0 && particles.isStopped) {
-            particles.Play();
+        else if (speed != 0 && Particles.isStopped) {
+            Particles.Play();
         }
         GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(0, speed));
     }
@@ -45,6 +46,7 @@ public class Player : MonoBehaviour {
             bullet.transform.position = BulletSpawn.position;
             bullet.transform.rotation = transform.rotation;
             bullet.SetActive(true);
+            AudioSource.PlayClipAtPoint(BulletLaunch, Camera.main.transform.position);
         }
     }
 }
