@@ -42,7 +42,7 @@ public class Player : MonoBehaviour {
 
     private void checkFire() {
         if (Input.GetButtonDown("Fire")) {
-            GameObject bullet = ObjectPooler.instance.GetPooledObject(ObjectPooler.ObjectTypes.Bullet);
+            GameObject bullet = ObjectPooler.Instance.GetPooledObject(ObjectPooler.ObjectTypes.Bullet);
             bullet.transform.position = BulletSpawn.position;
             bullet.transform.rotation = transform.rotation;
             bullet.SetActive(true);

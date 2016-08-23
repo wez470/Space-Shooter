@@ -5,37 +5,47 @@ using System.Collections.Generic;
 public class ObjectPooler : MonoBehaviour {
     public enum ObjectTypes {
         Bullet,
-        Enemy
+        Enemy,
+        Explosion
     };
-    public static ObjectPooler instance;
+    public static ObjectPooler Instance;
 
-    public int initialBulletCount = 20;
-    public int initialEnemyCount = 20;
-    public GameObject bullet;
-    public GameObject enemy;
+    public int InitialBulletCount = 20;
+    public int InitialEnemyCount = 20;
+    public int InitialExplosionCount = 5;
+    public GameObject Bullet;
+    public GameObject Enemy;
+    public GameObject Explosion;
 
     private Dictionary<ObjectTypes, List<GameObject>> gameObjects = new Dictionary<ObjectTypes, List<GameObject>>();
     private Dictionary<ObjectTypes, GameObject> prefabs = new Dictionary<ObjectTypes, GameObject>();
 
     void Awake() {
-        instance = this;
+        Instance = this;
     }
 
     void Start() {
         gameObjects.Add(ObjectTypes.Bullet, new List<GameObject>());
         gameObjects.Add(ObjectTypes.Enemy, new List<GameObject>());
-        prefabs.Add(ObjectTypes.Bullet, bullet);
-        prefabs.Add(ObjectTypes.Enemy, enemy);
+        gameObjects.Add(ObjectTypes.Explosion, new List<GameObject>());
+        prefabs.Add(ObjectTypes.Bullet, Bullet);
+        prefabs.Add(ObjectTypes.Enemy, Enemy);
+        prefabs.Add(ObjectTypes.Explosion, Explosion);
 
-        for (int i = 0; i < initialBulletCount; i++) {
-            GameObject newBullet = (GameObject)Instantiate(bullet);
+        for (int i = 0; i < InitialBulletCount; i++) {
+            GameObject newBullet = (GameObject)Instantiate(Bullet);
             newBullet.SetActive(false);
             gameObjects[ObjectTypes.Bullet].Add(newBullet);
         }
-        for (int i = 0; i < initialEnemyCount; i++) {
-            GameObject newEnemy = (GameObject)Instantiate(enemy);
+        for (int i = 0; i < InitialEnemyCount; i++) {
+            GameObject newEnemy = (GameObject)Instantiate(Enemy);
             newEnemy.SetActive(false);
             gameObjects[ObjectTypes.Enemy].Add(newEnemy);
+        }
+        for (int i = 0; i < InitialExplosionCount; i++) {
+            GameObject newExplosion = (GameObject)Instantiate(Explosion);
+            newExplosion.SetActive(false);
+            gameObjects[ObjectTypes.Explosion].Add(newExplosion);
         }
     }
 

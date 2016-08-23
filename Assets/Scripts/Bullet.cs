@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
     public float Speed;
-    public AudioClip Explosion;
+    public AudioClip ExplosionClip;
 
     void Awake() {
         int bulletLayer = gameObject.layer;
@@ -21,7 +21,16 @@ public class Bullet : MonoBehaviour {
             Camera.main.GetComponent<CameraShake>().Shake();
             coll.gameObject.SetActive(false);
             gameObject.SetActive(false);
-            AudioSource.PlayClipAtPoint(Explosion, Camera.main.transform.position);
+            AudioSource.PlayClipAtPoint(ExplosionClip, Camera.main.transform.position);
+            GameObject explosion = ObjectPooler.Instance.GetPooledObject(ObjectPooler.ObjectTypes.Explosion);
+            explosion.transform.position = transform.position;
+            explosion.transform.rotation = transform.rotation;
+            explosion.SetActive(true);
         }
+    }
+
+    void OnBecameInvisible() {
+        Debug.Log("MADE IT");
+        gameObject.SetActive(false);
     }
 }
