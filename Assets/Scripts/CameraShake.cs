@@ -2,13 +2,11 @@
 using System.Collections;
 
 public class CameraShake : MonoBehaviour {
+    public readonly Vector3 StartPosition = new Vector3(0, 0, -1);
     public float shakeAmt;
     public float shakeLength;
 
-    private Vector3 originalPosition;
-
     public void Shake() {
-        originalPosition = transform.position;
         InvokeRepeating("shake", 0, .01f);
         Invoke("stopShaking", shakeLength);
     }
@@ -24,6 +22,6 @@ public class CameraShake : MonoBehaviour {
 
     private void stopShaking() {
         CancelInvoke("shake");
-        transform.position = originalPosition;
+        transform.position = StartPosition;
     }
 }
