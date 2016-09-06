@@ -33,8 +33,4 @@ public class Bullet : MonoBehaviour {
         explosion.transform.rotation = transform.rotation;
         explosion.SetActive(true);
     }
-
-    void OnBecameInvisible() {
-        gameObject.SetActive(false);
-    }
 }
