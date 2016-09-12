@@ -8,6 +8,14 @@ public class GameController : MonoBehaviour {
 
     void Awake() {
         Instance = this;
+        setupBulletCollisions();
+    }
+
+    private void setupBulletCollisions() {
+        int bulletLayer = LayerMask.NameToLayer("Bullet");
+        int playerLayer = LayerMask.NameToLayer("Player");
+        Physics2D.IgnoreLayerCollision(bulletLayer, bulletLayer, true);
+        Physics2D.IgnoreLayerCollision(bulletLayer, playerLayer, true);
     }
 
     public void GameOver() {

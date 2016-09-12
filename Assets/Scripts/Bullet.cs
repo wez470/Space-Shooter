@@ -5,13 +5,6 @@ public class Bullet : MonoBehaviour {
     public float Speed;
     public AudioClip ExplosionClip;
 
-    void Awake() {
-        int bulletLayer = gameObject.layer;
-        int playerLayer = LayerMask.NameToLayer("Player");
-        Physics2D.IgnoreLayerCollision(bulletLayer, bulletLayer, true);
-        Physics2D.IgnoreLayerCollision(bulletLayer, playerLayer, true);
-    }
-
     void FixedUpdate() {
         GetComponent<Rigidbody2D>().velocity = transform.up * Speed;
     }
