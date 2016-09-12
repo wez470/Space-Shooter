@@ -10,9 +10,9 @@ public class Enemy : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 	
-	void Update() {
+	void FixedUpdate() {
         transform.up = player.position - transform.position;
-        GetComponent<Rigidbody2D>().velocity = transform.up * Speed * Time.deltaTime;
+        GetComponent<Rigidbody2D>().velocity = transform.up * Speed;
     }
 
     void OnCollisionEnter2D(Collision2D coll) {

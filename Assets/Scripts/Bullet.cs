@@ -12,8 +12,8 @@ public class Bullet : MonoBehaviour {
         Physics2D.IgnoreLayerCollision(bulletLayer, playerLayer, true);
     }
 
-    void Update() {
-        GetComponent<Rigidbody2D>().velocity = transform.up * Speed * Time.deltaTime;
+    void FixedUpdate() {
+        GetComponent<Rigidbody2D>().velocity = transform.up * Speed;
     }
 
     void OnCollisionEnter2D(Collision2D coll) {

@@ -9,20 +9,22 @@ public class Player : MonoBehaviour {
     public AudioClip BulletLaunch; 
 
     void Update() {
-        setRotation();
-        setMovement();
         checkFire();
     }
 
-    private void setMovement() {
-        float speed = Input.GetAxis("Vertical") * Speed * Time.deltaTime;
-        if (speed == 0 && Particles.isPlaying) {
-            Particles.Stop();
+    private void checkFire() {
+        if (Input.GetButtonDown("Fire")) {
+            GameObject bullet = ObjectPooler.Instance.GetPooledObject(ObjectPooler.ObjectTypes.Bullet);
+            bullet.transform.position = BulletSpawn.position;
+            bullet.transform.rotation = transform.rotation;
+            bullet.SetActive(true);
+            AudioSource.PlayClipAtPoint(BulletLaunch, Camera.main.transform.position);
         }
-        else if (speed != 0 && Particles.isStopped) {
-            Particles.Play();
-        }
-        GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(0, speed));
+    }
+
+    void FixedUpdate() {
+        setRotation();
+        setMovement();
     }
 
     private void setRotation() {
@@ -39,13 +41,14 @@ public class Player : MonoBehaviour {
         GetComponent<Rigidbody2D>().angularVelocity = 0;
     }
 
-    private void checkFire() {
-        if (Input.GetButtonDown("Fire")) {
-            GameObject bullet = ObjectPooler.Instance.GetPooledObject(ObjectPooler.ObjectTypes.Bullet);
-            bullet.transform.position = BulletSpawn.position;
-            bullet.transform.rotation = transform.rotation;
-            bullet.SetActive(true);
-            AudioSource.PlayClipAtPoint(BulletLaunch, Camera.main.transform.position);
+    private void setMovement() {
+        float speed = Input.GetAxis("Vertical") * Speed;
+        if (speed == 0 && Particles.isPlaying) {
+            Particles.Stop();
         }
+        else if (speed != 0 && Particles.isStopped) {
+            Particles.Play();
+        }
+        GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(0, speed));
     }
 }
